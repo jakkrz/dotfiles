@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while :; do
+    $HOME/scripts/updatebar
+    sleep 1s
+done

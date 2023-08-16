@@ -1,0 +1,5 @@
+#!/bin/bash
+
+VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print $5}')
+
+xsetroot -name "| ${VOLUME} | $(date "+%a %d %b | %R:%S")"

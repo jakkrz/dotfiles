@@ -1,0 +1,14 @@
+#!/bin/bash
+# this script has been aliased by the shell to automatically be sourced when ran
+
+PROGRAMMING_DIR="$HOME/programming/"
+
+PROJECT=$(find ~/programming -type d -name ".git" \
+    | sed -re "s|/[^/]+$||" -re "s|$PROGRAMMING_DIR||" \
+    | sort \
+    | uniq \
+    | fzf)
+
+cd $PROGRAMMING_DIR
+cd $PROJECT
+

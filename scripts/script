@@ -1,0 +1,19 @@
+#!/bin/bash
+# this script has been aliased by the shell to automatically be sourced when ran
+
+ORIGINAL_DIR=$(pwd)
+SCRIPT_DIR="$HOME/scripts/"
+
+SCRIPT=$(ls $SCRIPT_DIR \
+    | sed -re "s|$SCRIPT_DIR||" \
+    | sort \
+    | fzf)
+
+if [[ -n $SCRIPT ]]; then
+    cd $SCRIPT_DIR
+    [ -z $EDITOR ] \
+        && echo "You must set \$EDITOR before using this script" \
+        || $EDITOR $SCRIPT 
+
+    cd "$ORIGINAL_DIR"
+fi

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+xrandr --dpi 144
+feh --bg-fill ~/backgrounds/onedark.png
+xcompmgr &
+setxkbmap -option compose:rctrl
+xbindkeys
+$HOME/scripts/dwmbar &
+
+# XDG paths
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
