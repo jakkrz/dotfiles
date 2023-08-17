@@ -1,39 +1,53 @@
 local cmp_ok, cmp = pcall(require, 'cmp')
+vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#323842" })
 
 if cmp_ok then
-	menu_icons = {
-		Text = '',
-		Method = '',
-		Function = '',
+    menu_icons = {
+		Text = '󰦨',
+		Method = '',
+		Function = '󰊕',
 		Constructor = '',
-		Field = 'ﰠ',
-		Variable = '',
-		Class = 'ﴯ',
+		Field = '',
+		Variable = '󰫧',
+		Class = '',
 		Interface = '',
 		Module = '',
-		Property = 'ﰠ',
-		Unit = '塞',
+		Property = '',
+		Unit = '󰚯',
 		Value = '',
 		Enum = '',
-		Keyword = '',
+		Keyword = '',
 		Snippet = '',
-		Color = '',
-		File = '',
-		Reference = '',
-		Folder = '',
+		Color = '',
+		File = '',
+		Reference = '',
+		Folder = '',
 		EnumMember = '',
-		Constant = '',
+		Constant = '',
 		Struct = 'פּ',
 		Event = '',
-		Operator = '',
-		TypeParameter = ''
+		Operator = '',
+		TypeParameter = '󰉺'
 	}
 
 	cmp.setup {
 		mapping = cmp.mapping.preset.insert {
-			['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-			['<Tab>'] = cmp.mapping.confirm({ select = true }),
+            ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
 			['<CR>'] = cmp.mapping.confirm({ select = true }),
+			['<Tab>'] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_next_item()
+				else
+					fallback()
+				end
+			    end, { 'i', 's' }),
+			['<S-Tab>'] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item()
+				else
+					fallback()
+				end
+			end, { 'i', 's' })
 		},
 		formatting = {
 			format = function(_entry, vim_item)
@@ -50,9 +64,13 @@ if cmp_ok then
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = false
 		},
-		window = {
-			completion = cmp.config.window.bordered(),
-			documentation = cmp.config.window.bordered(),
-		}
+        window = {
+            completion = {
+                winhighlight = "Normal:CmpNormal",
+            }
+        }
+		-- window = {
+		-- 	documentation = cmp.config.window.bordered(),
+		-- }
 	}
 end

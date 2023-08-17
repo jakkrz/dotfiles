@@ -18,6 +18,18 @@ local function usePlugins(use)
 
     -- LSP
     use { "neovim/nvim-lspconfig" }
+    use {
+        "williamboman/mason.nvim",
+        config = function()
+            require("mason").setup()
+        end
+    }
+    use {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+            require("mason-lspconfig").setup()
+        end
+    }
 
     -- Autocomplete
     use {
@@ -45,6 +57,7 @@ local function usePlugins(use)
             }
         end
     }
+
 end
 
 return usePlugins

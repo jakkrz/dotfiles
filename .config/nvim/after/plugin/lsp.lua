@@ -1,12 +1,12 @@
 local lsp_ok, lsp = pcall(require, 'lspconfig')
-
-if lsp_ok then
+local mason_ok, mason = pcall(require, "mason-lspconfig")
+if lsp_ok and mason_ok then
 	local on_attach = function(client, bufnr)
 	    vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer=0})
 	    vim.keymap.set("n", "gd", vim.lsp.buf.definition, {buffer=0})
 	    vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, {buffer=0})
-	    vim.keymap.set("n", "ge", vim.lsp.buf.references, {buffer=0})
-	    vim.keymap.set("n", "gr", vim.lsp.buf.rename, {buffer=0})
+	    vim.keymap.set("n", "gr", vim.lsp.buf.references, {buffer=0})
+	    vim.keymap.set("n", "gR", vim.lsp.buf.rename, {buffer=0})
 		-- if client.supports_method('textDocument/formatting') then
 		-- 	vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 		-- 	vim.api.nvim_create_autocmd('BufWritePre', {
@@ -23,7 +23,7 @@ if lsp_ok then
 
 	vim.fn.sign_define('DiagnosticSignError', { texthl = 'DiagnosticSignError', text = '', numhl = '' })
 	vim.fn.sign_define('DiagnosticSignWarn', { texthl = 'DiagnosticSignWarn', text = '', numhl = '' })
-	vim.fn.sign_define('DiagnosticSignHint', { texthl = 'DiagnosticSignHint', text = '', numhl = '' })
+	vim.fn.sign_define('DiagnosticSignHint', { texthl = 'DiagnosticSignHint', text = '󰇘', numhl = '' })
 	vim.fn.sign_define('DiagnosticSignInfo', { texthl = 'DiagnosticSignInfo', text = '', numhl = '' })
 
 	vim.diagnostic.config {
@@ -56,8 +56,18 @@ if lsp_ok then
 		capabilities = capabilities
 	}
 
-    require'lspconfig'.rust_analyzer.setup {
+	lsp['tsserver'].setup {
+
+	}
+
+    lsp['rust_analyzer'].setup {
         on_attach = on_attach,
         capabilities = capabilities
+    }
+
+    mason.setup_handlers {
+        function(server_name) -- default handler (optional)
+            lsp[server_name].setup {}
+        end,
     }
 end

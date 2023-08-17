@@ -1,12 +1,4 @@
-# Colorization
-export LESS_TERMCAP_mb=$"\e[1;32m"
-export LESS_TERMCAP_md=$"\e[1;32m"
-export LESS_TERMCAP_me=$"\e[0m"
-export LESS_TERMCAP_se=$"\e[0m"
-export LESS_TERMCAP_so=$"\e[01;33m"
-export LESS_TERMCAP_ue=$"\e[0m"
-export LESS_TERMCAP_us=$"\e[1;4;35m"
-
+# Aliasing for convenience
 alias ls="ls --color=auto"
 alias dir="dir --color=auto"
 alias vdir="vdir --color=auto"
@@ -63,3 +55,14 @@ source /home/jakub/software/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Terminal prompt
 autoload -U colors && colors
 PS1="%{$fg[magenta]%}%n@%m%{$fg[green]%} %~ %{$reset_color%}%% "
+
+# Colorization
+# export LESS_TERMCAP_mb=$"\e[1;32m"
+# export LESS_TERMCAP_md=$"\e[1;32m"
+# export LESS_TERMCAP_me=$"\e[0m"
+# export LESS_TERMCAP_se=$"\e[0m"
+# export LESS_TERMCAP_so=$"\e[01;33m"
+# export LESS_TERMCAP_ue=$"\e[0m"
+# export LESS_TERMCAP_us=$"\e[1;4;35m"
+
+[ -f "/home/jakub/.ghcup/env" ] && source "/home/jakub/.ghcup/env" # ghcup-env
